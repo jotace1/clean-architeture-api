@@ -12,7 +12,6 @@
   <a href="#-licença">Lincença</a>
 </p>
 
-<img src="https://github.com/jotace1/GoBarber_web/raw/master/src/assets/Capa.png"/>
 
 ### 📌 Sobre
 Api desenvolvida com o intuito de colocar em prática os conceitos da clean architeture
