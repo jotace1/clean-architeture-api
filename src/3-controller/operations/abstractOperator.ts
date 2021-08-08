@@ -2,15 +2,13 @@ import { Validatable } from '@controller/serializers/abstractValidatable'
 import { injectable } from 'inversify'
 import { ValidationError } from 'class-validator'
 import { validationError } from '@business/modules/errors/validation'
+import { Request, Response } from 'express'
 
 @injectable()
 export abstract class AbstractOperator<I, O> {
-  protected abstract run(input: Validatable<I>): Promise<O>
-
-  public async exec(input: Validatable<I>): Promise<O> {
+  public async exec(request: Request, response: Response): Promise<O> {
     try {
-      input.validate()
-      return this.run(input)
+      return this.exec(request, response)
     } catch (err) {
       if (err instanceof Array && err.length && err[0] instanceof ValidationError) {
         const data = err.map((i) => ({

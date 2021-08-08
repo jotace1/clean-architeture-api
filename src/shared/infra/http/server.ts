@@ -1,9 +1,9 @@
 import 'reflect-metadata'
 import 'dotenv/config'
-import express, { Request, Response, NextFunction } from 'express'
-import Routes from './routes'
+import express from 'express'
 import '@shared/infra/typeorm'
 import '@framework/ioc/inversify.config'
+import Routes from './routes'
 
 const app = express()
 app.use(express.json())

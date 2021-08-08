@@ -1,24 +1,20 @@
 import { injectable, inject } from 'inversify'
 import { IUserRepository } from '@business/repositories/IUserRepository'
 import { UserModel } from '@framework/models/User'
-import { Repository, getRepository } from 'typeorm'
+import { Repository } from 'typeorm'
 import { IUserEntity } from '@domain/entities/userEntity'
 
 @injectable()
 export class UserRepository implements IUserRepository {
-  private ormRepository: Repository<UserModel>
-
-  public constructor() {
-    this.ormRepository = getRepository(UserModel)
-  }
+  public constructor(@inject(UserModel) private userModel: Repository<UserModel>) {}
   async create(userEntity: IUserEntity): Promise<IUserEntity> {
-    const userSaved = await this.ormRepository.create({
+    const userSaved = await this.userModel.create({
       email: userEntity.email,
       password: userEntity.password,
       name: userEntity.name
     })
 
-    await this.ormRepository.save(userSaved)
+    await this.userModel.save(userSaved)
 
     return userSaved
   }
